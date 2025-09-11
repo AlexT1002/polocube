@@ -1,6 +1,8 @@
 package dev.httpmarco.polocube
 
 import dev.httpmarco.polocube.cube.CubeSnapshot
+import dev.httpmarco.polocube.players.CubePlayer
+import org.bukkit.entity.Player
 
 val cubes = Cubes()
 
@@ -21,7 +23,21 @@ class Cubes {
      */
     private val runningServers = mutableListOf<CubeServer>()
 
-    fun servers() : List<CubeServer> {
+    /**
+     * List of currently connected CubePlayers
+     *
+     * @see CubePlayer
+     */
+    private val connectedPlayers = mutableListOf<CubePlayer>()
+
+    fun servers(): List<CubeServer> {
         return ArrayList(runningServers)
     }
+
+    fun findPlayer(player: Player): CubePlayer {
+        return connectedPlayers.firstOrNull { it.uniqueId == player.uniqueId } ?: CubePlayer(player).also {
+            connectedPlayers.add(it)
+        }
+    }
+
 }
