@@ -7,3 +7,4 @@ enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 rootProject.name = "polocube"
 include("cube")
 include("cube-bedwars")
+include("cube-game")
