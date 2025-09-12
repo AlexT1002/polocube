@@ -8,6 +8,8 @@ class CubePlugin : JavaPlugin() {
 
     override fun onEnable() {
         Bukkit.getPluginManager().registerEvents(CubePlayerListeners(), this)
+
+        cubes
     }
 
     override fun onDisable() {

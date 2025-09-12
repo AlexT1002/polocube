@@ -1,12 +1,16 @@
 package dev.httpmarco.polocube
 
 import dev.httpmarco.polocube.cube.CubeSnapshot
+import dev.httpmarco.polocube.cube.loadCubes
 import dev.httpmarco.polocube.players.CubePlayer
+import org.bukkit.Bukkit
 import org.bukkit.entity.Player
 
 val cubes = Cubes()
 
 class Cubes {
+
+    val logger = Bukkit.getLogger()
 
     /**
      * List of currently loaded CubeSnapshots
@@ -14,7 +18,7 @@ class Cubes {
      *
      * @see CubeSnapshot
      */
-    private val loadedCubes = mutableListOf<CubeSnapshot>()
+    private var loadedCubes = loadCubes("cubes")
 
     /**
      * List of currently running CubeServers
@@ -30,6 +34,10 @@ class Cubes {
      */
     private val connectedPlayers = mutableListOf<CubePlayer>()
 
+    init {
+        logger.info { "Load ${loadedCubes.size} cubes" }
+    }
+
     fun servers(): List<CubeServer> {
         return ArrayList(runningServers)
     }
@@ -39,5 +47,4 @@ class Cubes {
             connectedPlayers.add(it)
         }
     }
-
 }
